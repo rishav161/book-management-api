@@ -1,0 +1,17 @@
+node_modules
+dist
+.env
+uploads
+*.log
+coverage
+invalid.csv
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+*.swp
+*.swo
+*~
+*.tsbuildinfo
+tmp
+temp
