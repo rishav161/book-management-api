@@ -60,7 +60,3 @@ CSV Format:
 title,author,publishedYear
 Book Title,Author Name,2024
 ```
-
-## Testing
-
-Import `postman_collection.json` into Postman or use `sample.csv` for testing CSV import.
