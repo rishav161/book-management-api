@@ -1,6 +1,19 @@
 # Book Management REST API
 
-REST API for managing books with Node.js, Express, and TypeScript.
+A REST API for managing books built with Node.js, Express, and TypeScript. Supports CRUD operations and bulk CSV import with validation.
+
+## Features
+
+- Full CRUD operations for books
+- CSV bulk import with row-level validation
+- TypeScript for type safety
+- Request logging with Morgan
+- Centralized error handling
+- Unit tests with Jest
+
+## Tech Stack
+
+Node.js, Express, TypeScript, Morgan, Multer, Jest
 
 ## Installation
 
@@ -9,18 +22,18 @@ npm install
 ```
 
 Create `.env` file:
-```
+```env
 PORT=3000
 NODE_ENV=development
 ```
 
-## Run
+## Running
 
 ```bash
-npm run dev    # Development
-npm test       # Tests
-npm run build  # Build
-npm start      # Production
+npm run dev    # Development with auto-reload
+npm test       # Run tests
+npm run build  # Build for production
+npm start      # Start production server
 ```
 
 ## API Endpoints
@@ -31,16 +44,18 @@ npm start      # Production
 |--------|----------|-------------|
 | GET | /books | Get all books |
 | GET | /books/:id | Get book by ID |
-| POST | /books | Create book |
-| PUT | /books/:id | Update book |
-| DELETE | /books/:id | Delete book |
-| POST | /books/import | Import CSV |
+| POST | /books | Create a new book |
+| PUT | /books/:id | Update a book |
+| DELETE | /books/:id | Delete a book |
+| POST | /books/import | Import books from CSV |
 
 ## Request Examples
 
-**Create Book:**
-```json
+### Create Book
+```http
 POST /api/books
+Content-Type: application/json
+
 {
   "title": "The Great Gatsby",
   "author": "F. Scott Fitzgerald",
@@ -48,15 +63,35 @@ POST /api/books
 }
 ```
 
-**CSV Import:**
-```
+### CSV Import
+```http
 POST /api/books/import
 Content-Type: multipart/form-data
+
 file: books.csv
 ```
 
-CSV Format:
+**CSV Format:**
 ```csv
 title,author,publishedYear
-Book Title,Author Name,2024
+The Great Gatsby,F. Scott Fitzgerald,1925
+1984,George Orwell,1949
 ```
+
+**Response:**
+```json
+{
+  "added": 2,
+  "errors": []
+}
+```
+
+## Validation Rules
+
+- **title**: Required, non-empty string
+- **author**: Required, non-empty string
+- **publishedYear**: Required, valid year (1000 - current year)
+
+## Testing
+
+Import `postman_collection.json` into Postman to test all endpoints.
